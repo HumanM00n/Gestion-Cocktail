@@ -1,36 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/public/Home.vue'
-import Cocktail from '@/views/public/Cocktail.vue'
-import Contact from '@/views/public/Contact.vue'
-import NotFound from '@/views/public/NotFound.vue'
-import PublicLayout from '@/views/public/Layout.vue'
 
-
-import adminLayout from '@/views/admin/Layout.vue'
-import Dashboard from '@/views/admin/Dashboard.vue'
+// Ramène tous les composants que l'on met à disposition dans le fichier 'view/public/index.js'
+import * as Public from '@/views/public'
+import * as Admin from '@/views/admin'
 
 const routes = [
-
-{
-  path: '/',
-  name: 'public',
-  component: PublicLayout,
-  children: [ 
-    { path: '/', name: 'Home', component: Home },
-    { path: '/cocktails',  name: 'cocktails',  component: Cocktail },
-    { path: '/contact', name: 'contact', component: Contact },
-  ]
-},
-
-{
-  path: '/admin',
-  path: 'admin',
-  component: adminLayout
-},
-
-{
-  path: '/:pathMatch(.*)*', component: NotFound // Affiche un page 404 not Found quand le chemin spécifié dans l'url n'est pas bon
-}
+  {
+    path: '/',
+    name: 'public',
+    component: Public.PublicLayout,
+    // Déclaration des routes enfants 
+    children: [
+      { path: '/', name: 'Home', component: Public.Home },
+      { path: '/cocktails', name: 'cocktails', component: Public.Cocktail },
+      { path: '/contact', name: 'contact', component: Public.Contact },
+    ]
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin.adminLayout,
+    // Déclaration des routes enfants 
+    children: [
+      { path: 'dashboard', name: 'dashboard', component: Admin.Dashboard },
+      { path: 'users/index', component: Admin.UserIndex },
+      { path: 'users/edit/:id', component: Admin.UserEdit },
+      { path: 'users/add', component: Admin.UserAdd },
+  
+      { path: 'cocktails/index', component: Admin.CocktailIndex },
+      { path: 'cocktails/edit',  component: Admin.CocktailEdit }
+    ]
+  },
+  {
+    path: '/:pathMatch(.*)*', component: Public.NotFound // Affiche une page 404 Not Found quand le chemin spécifié dans l'URL n'est pas correct
+  }
 ]
 
 const router = createRouter({
