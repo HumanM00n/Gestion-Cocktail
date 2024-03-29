@@ -8,8 +8,6 @@ import * as Admin from '@/views/admin'
 
 import Login from '@/views/auth/Login.vue'
 
-import { AuthGuard } from '@/_helpers/auth-guard'
-
 const routes = [
   {
     path: '/',
@@ -41,7 +39,7 @@ const routes = [
   },
 
   {
-    path: '/login', name: 'Login', component: Login, beforeEnter: AuthGuard
+    path: '/login', name: 'Login', component: Login
   },
 
   {
