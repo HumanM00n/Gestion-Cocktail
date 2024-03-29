@@ -7,15 +7,17 @@ import * as Public from '@/views/public'
 import * as Admin from '@/views/admin'
 
 import Login from '@/views/auth/Login.vue'
-
 import { authGuard } from '@/_helpers/auth-guard'
-import { nextTick } from 'vue'
+
+// localStorage.setItem('token', 'marcel')
+// import { nextTick } from 'vue'
 
 
 const routes = [
   {
     path: '/',
     name: 'public',
+    beforeEnter: authGuard,
     component: Public.PublicLayout,
     // Déclaration des routes enfants 
     children: [
@@ -27,6 +29,7 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
+    beforeEnter: authGuard,
     component: Admin.adminLayout,
     // Déclaration des routes enfants 
     children: [
@@ -43,7 +46,7 @@ const routes = [
   },
 
   {
-    path: '/login', name: 'Login', component: Login, beforeEnter: authGuard
+    path: '/login', name: 'Login', component: Login
   },
 
   {
@@ -56,9 +59,5 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  console.log(to.matched[0].name)
-  next()
-})
 
 export default router

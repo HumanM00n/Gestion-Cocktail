@@ -4,12 +4,12 @@
 
     <div>
         <ul>
-            <li>Accueil</li>
+            <li><router-link to='/'>Accueil</router-link></li>
             <br>
-            <li>Dashboard</li>
-            <li>User List</li>
+            <li><router-link to='/admin/dashboard'>Dashboard</router-link></li>
+            <li><router-link to='/admin/users/index'>User list</router-link></li>
             <br>
-            <li><a href="">User T12</a></li>
+            <li><router-link to='/admin/users/add'>User add</router-link></li>
         </ul>
     </div>
 

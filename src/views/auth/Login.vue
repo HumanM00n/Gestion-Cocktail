@@ -38,9 +38,7 @@ export default {
 
     methods: {
         login() {
-            console.log('stop form'),
-            console.log(this.user.login
-            )
+            this.$router.push('/admin/dashboard')
         }
     }
 }
