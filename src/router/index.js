@@ -7,17 +7,11 @@ import * as Public from '@/views/public'
 import * as Admin from '@/views/admin'
 
 import Login from '@/views/auth/Login.vue'
-import { authGuard } from '@/_helpers/auth-guard'
-
-// localStorage.setItem('token', 'marcel')
-// import { nextTick } from 'vue'
-
 
 const routes = [
   {
     path: '/',
     name: 'public',
-    beforeEnter: authGuard,
     component: Public.PublicLayout,
     // Déclaration des routes enfants 
     children: [
@@ -29,24 +23,25 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    beforeEnter: authGuard,
     component: Admin.adminLayout,
     // Déclaration des routes enfants 
     children: [
       { path: 'dashboard', name: 'dashboard', component: Admin.Dashboard },
       { path: 'users/index', component: Admin.UserIndex },
-       // Active sur le Path (URL), qu'on va transmettre directement des propriétés
-       // (\\d+) veut dire ne doit comporter que des chiffres
+      // Active sur le Path (URL), qu'on va transmettre directement des propriétés
+      // (\\d+) veut dire ne doit comporter que des chiffres
       { path: 'users/edit/:id(\\d+)', component: Admin.UserEdit, props: true },
       { path: 'users/add', component: Admin.UserAdd },
-  
+
       { path: 'cocktails/index', component: Admin.CocktailIndex },
-      { path: 'cocktails/edit',  component: Admin.CocktailEdit }
+      { path: 'cocktails/edit', component: Admin.CocktailEdit }
     ]
   },
 
   {
-    path: '/login', name: 'Login', component: Login
+    path: '/login', name: 'Login', component: Login, beforeEnter: (to) => {
+      return false
+    }
   },
 
   {
@@ -58,6 +53,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
 
 
 export default router

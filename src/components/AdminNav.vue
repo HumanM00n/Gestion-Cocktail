@@ -22,3 +22,15 @@ export default {
     name: 'AdminNav'
 }
 </script>
+
+<style>
+ul {
+    list-style: none;
+    padding-left: 0px;
+    margin-right: 10px;
+}
+
+ul li {
+    text-align: left;
+}
+</style>

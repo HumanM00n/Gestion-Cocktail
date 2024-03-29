@@ -17,7 +17,7 @@
             <!-- MOT DE PASSE -->
             <div class="mb-3">
                 <label for="user_password" class="form-label">Mot de passe</label>
-                <input type="text" class="form-control" id="user_password" v-model="user.password"/>
+                <input type="password" class="form-control" id="user_password" v-model="user.password"/>
             </div>
             <button type="submit" class="btn btn-primary" id="button">Connexion</button>
         </form>
