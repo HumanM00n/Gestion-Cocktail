@@ -10,8 +10,8 @@
 
             <!-- ADRESSE MAIL -->
             <div class="mb-3" id="formGroup">
-                <label for="user_login" class="form-label mr-5">Adresse mail</label>
-                <input type="text" class="form-control" id="user_login" v-model="user.login"/>
+                <label for="user_mail" class="form-label mr-5">Adresse mail</label>
+                <input type="text" class="form-control" id="user_mail" v-model="user.login"/>
             </div>
 
             <!-- MOT DE PASSE -->
@@ -37,9 +37,7 @@ export default {
     },
 
     methods: {
-        login() {
-            this.$router.push('/admin/dashboard')
-        }
+        login(){}
     }
 }
 </script>
