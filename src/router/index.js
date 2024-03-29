@@ -2,7 +2,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // Ramène tous les composants que l'on met à disposition dans le fichier 'view/public/index.js'
 import * as Public from '@/views/public'
+
+// Ramène tous les composants que l'on met à disposition dans le fichier 'view/admin/index.js'
 import * as Admin from '@/views/admin'
+
+import Login from '@/views/auth/Login.vue'
+
+import { authGuard } from '@/_helpers/auth-guard'
+import { nextTick } from 'vue'
+
 
 const routes = [
   {
@@ -24,13 +32,20 @@ const routes = [
     children: [
       { path: 'dashboard', name: 'dashboard', component: Admin.Dashboard },
       { path: 'users/index', component: Admin.UserIndex },
-      { path: 'users/edit/:id', component: Admin.UserEdit },
+       // Active sur le Path (URL), qu'on va transmettre directement des propriétés
+       // (\\d+) veut dire ne doit comporter que des chiffres
+      { path: 'users/edit/:id(\\d+)', component: Admin.UserEdit, props: true },
       { path: 'users/add', component: Admin.UserAdd },
   
       { path: 'cocktails/index', component: Admin.CocktailIndex },
       { path: 'cocktails/edit',  component: Admin.CocktailEdit }
     ]
   },
+
+  {
+    path: '/login', name: 'Login', component: Login, beforeEnter: authGuard
+  },
+
   {
     path: '/:pathMatch(.*)*', component: Public.NotFound // Affiche une page 404 Not Found quand le chemin spécifié dans l'URL n'est pas correct
   }
@@ -39,6 +54,11 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  console.log(to.matched[0].name)
+  next()
 })
 
 export default router
